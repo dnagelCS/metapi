@@ -5,7 +5,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
 //Request data from MetService and populate the view/frame
@@ -42,8 +46,8 @@ public class MetController {
                 MetFeed.DeptList deptList = response.body();
                 List<MetFeed.DeptList.Department> departments = deptList.departments;
                 //add every dept in list to deptComboBox
-                for(MetFeed.DeptList.Department department:departments) {
-                    deptComboBox.addItem(department);
+                for (int i = 0; i < departments.size(); i++) {
+                    deptComboBox.addItem(departments.get(i));
                 }
             }
 
@@ -81,7 +85,19 @@ public class MetController {
                 MetFeed.ObjectInfo objectInfo = response.body();
                 assert objectInfo != null;
                 image.setSize(200,200);
-                image.setIcon(new ImageIcon(objectInfo.primaryImage));
+                if(objectInfo.primaryImage.equals("")) {
+                    image.setIcon(null);
+                    image.setText("No image");
+                }
+                else {
+                    try {
+                        URL url = new URL(objectInfo.primaryImage);
+                        BufferedImage buffImage = ImageIO.read(url);
+                        image.setIcon(new ImageIcon(buffImage));
+                    } catch(IOException exc) {
+                        exc.printStackTrace();
+                    }
+                }
                 title.setText(objectInfo.title);
                 period.setText(objectInfo.period);
                 date.setText(objectInfo.objectDate);

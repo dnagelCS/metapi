@@ -32,12 +32,10 @@ public class MetFrame extends JFrame {
         setLayout(new BorderLayout());
 
         departmentsPanel = new JPanel();
-        departmentsPanel.setLayout(new BoxLayout(departmentsPanel, BoxLayout.Y_AXIS));
+        departmentsPanel.setLayout(new FlowLayout());
         deptComboBox = new JComboBox<>();
+        deptComboBox.isEditable();
         departmentsPanel.add(deptComboBox);
-
-        //send deptComboBox containing Dept List to controller
-        controller.requestDeptList();
 
         //when click on specific dept --> object list should be displayed
         deptComboBox.addActionListener(actionEvent -> getObjects());
@@ -57,12 +55,14 @@ public class MetFrame extends JFrame {
         objectPanel.add(culture);
         objectPanel.add(medium);
 
-        //try getMaximumSize()
         arrowPanel = new JPanel();
         arrowPanel.setLayout(new FlowLayout());
-        previous = new BasicArrowButton(BasicArrowButton.LEFT);
+        previous = new BasicArrowButton(BasicArrowButton.WEST);
+        /* Is there a way to resize the button? It seems that the class
+        BasicArrowButton overrides the method setSize(). */
+        previous.setSize(200,200);
         previous.addActionListener(actionEvent -> getPreviousObject());
-        next = new BasicArrowButton(BasicArrowButton.RIGHT);
+        next = new BasicArrowButton(BasicArrowButton.EAST);
         next.addActionListener(actionEvent -> getNextObject());
         arrowPanel.add(previous);
         arrowPanel.add(next);
@@ -74,6 +74,8 @@ public class MetFrame extends JFrame {
         service = new MetServiceFactory().getInstance();
         controller = new MetController(service, deptComboBox, image, title,
                 period, date, culture, medium);
+        //send deptComboBox containing Dept List to controller
+        controller.requestDeptList();
     }
 
     private void getObjects() {
