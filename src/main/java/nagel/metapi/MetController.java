@@ -104,11 +104,11 @@ public class MetController {
                         exc.printStackTrace();
                     }
                 }
-                title.setText(objectInfo.title);
-                period.setText(objectInfo.period);
-                date.setText(objectInfo.objectDate);
-                culture.setText(objectInfo.culture);
-                medium.setText(objectInfo.medium);
+                title.setText("Title: " + objectInfo.title);
+                period.setText("Period: " + objectInfo.period);
+                date.setText("Date: " + objectInfo.objectDate);
+                culture.setText("Culture: " + objectInfo.culture);
+                medium.setText("Medium: " + objectInfo.medium);
             }
 
             @Override
