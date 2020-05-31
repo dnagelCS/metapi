@@ -37,7 +37,7 @@ public class MetFrame extends JFrame {
         departmentsPanel.add(deptComboBox);
 
         //send deptComboBox containing Dept List to controller
-        controller.requestDeptList(deptComboBox);
+        controller.requestDeptList();
 
         //when click on specific dept --> object list should be displayed
         deptComboBox.addActionListener(actionEvent -> getObjects());
@@ -73,7 +73,7 @@ public class MetFrame extends JFrame {
 
         service = new MetServiceFactory().getInstance();
         controller = new MetController(service, image, title,
-                period, date, culture, medium);
+                period, date, culture, medium, deptComboBox);
     }
 
     private void getObjects() {

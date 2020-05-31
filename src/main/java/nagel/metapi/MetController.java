@@ -6,11 +6,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicArrowButton;
 import java.util.List;
 
 //Request data from MetService and populate the view/frame
 public class MetController {
+
     private MetService service;
     JLabel image;
     JLabel title;
@@ -18,11 +18,12 @@ public class MetController {
     JLabel date;
     JLabel culture;
     JLabel medium;
+    JComboBox<MetFeed.DeptList.Department> deptComboBox;
 
     public MetController(MetService service, JLabel image,
                          JLabel title, JLabel period,
                          JLabel date, JLabel culture,
-                         JLabel medium) {
+                         JLabel medium, JComboBox<MetFeed.DeptList.Department> deptComboBox) {
         this.service = service;
         this.image = image;
         this.title = title;
@@ -30,10 +31,11 @@ public class MetController {
         this.date = date;
         this.culture = culture;
         this.medium = medium;
+        this.deptComboBox = deptComboBox;
     }
 
     //DEPT LIST
-    public void requestDeptList(JComboBox<MetFeed.DeptList.Department> deptComboBox) {
+    public void requestDeptList() {
         service.getDepartments().enqueue(new Callback<MetFeed.DeptList>() {
             @Override
             public void onResponse(Call<MetFeed.DeptList> call, Response<MetFeed.DeptList> response) {
