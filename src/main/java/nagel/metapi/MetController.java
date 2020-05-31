@@ -16,6 +16,8 @@ import java.util.List;
 public class MetController {
 
     private MetService service;
+    private List<MetFeed.DeptList.Department> departments;
+    private List<Integer> objectIDs;
     JComboBox<MetFeed.DeptList.Department> deptComboBox;
     JLabel image;
     JLabel title;
@@ -44,10 +46,10 @@ public class MetController {
             @Override
             public void onResponse(Call<MetFeed.DeptList> call, Response<MetFeed.DeptList> response) {
                 MetFeed.DeptList deptList = response.body();
-                List<MetFeed.DeptList.Department> departments = deptList.departments;
+                departments = deptList.departments;
                 //add every dept in list to deptComboBox
-                for (int i = 0; i < departments.size(); i++) {
-                    deptComboBox.addItem(departments.get(i));
+                for (MetFeed.DeptList.Department department : departments) {
+                    deptComboBox.addItem(department);
                 }
             }
 
@@ -58,14 +60,14 @@ public class MetController {
         });
     }
 
-    //OBJECT LIST
+    //OBJECTS
     public void requestObjects(int deptID) {
         service.getObjects(deptID).enqueue(new Callback<MetFeed.Objects>() {
             @Override
             public void onResponse(Call<MetFeed.Objects> call, Response<MetFeed.Objects> response) {
                 MetFeed.Objects objects = response.body();
                 assert objects != null;
-                List<Integer> objectIDs = objects.objectIDs;
+                objectIDs = objects.objectIDs;
                 //automatically begin with 1st object ID
                 requestObjectInfo(0);
             }
@@ -79,12 +81,12 @@ public class MetController {
 
     //OBJECT METADATA
     public void requestObjectInfo(int objectID) {
-        service.getObjectInfo(objectID).enqueue(new Callback<MetFeed.ObjectInfo>() {
+        service.getObjectInfo(objectIDs.get(objectID)).enqueue(new Callback<MetFeed.ObjectInfo>() {
             @Override
             public void onResponse(Call<MetFeed.ObjectInfo> call, Response<MetFeed.ObjectInfo> response) {
                 MetFeed.ObjectInfo objectInfo = response.body();
                 assert objectInfo != null;
-                image.setSize(200,200);
+                image.setSize(100,100);
                 if(objectInfo.primaryImage.equals("")) {
                     image.setIcon(null);
                     image.setText("No image");

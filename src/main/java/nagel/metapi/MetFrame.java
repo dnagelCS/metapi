@@ -68,7 +68,7 @@ public class MetFrame extends JFrame {
         arrowPanel.add(next);
 
         add(departmentsPanel, BorderLayout.WEST);
-        add(objectPanel, BorderLayout.EAST);    //maybe change to center so pic can go on right
+        add(objectPanel, BorderLayout.CENTER);    //maybe change to center so pic can go on right
         add(arrowPanel, BorderLayout.SOUTH);
 
         service = new MetServiceFactory().getInstance();
