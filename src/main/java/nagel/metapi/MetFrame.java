@@ -21,7 +21,7 @@ public class MetFrame extends JFrame {
     private BasicArrowButton previous;
     private BasicArrowButton next;
 
-    private  int index = 0;
+    private  int index;
     MetFeed.DeptList.Department selectedDept;
     MetFeed.Objects objects;
 
@@ -81,6 +81,7 @@ public class MetFrame extends JFrame {
         int deptID = selectedDept.departmentId;
         //send deptID to controller
         controller.requestObjects(deptID);
+        index = 0;
     }
 
     private void getPreviousObject() {
@@ -90,9 +91,10 @@ public class MetFrame extends JFrame {
         }
         else {
             previous.setEnabled(true);
+            index --;
+            //send object ID to controller
+            controller.requestObjectInfo(index);
         }
-        //send object ID to controller
-        controller.requestObjectInfo(index);
     }
 
     private void getNextObject() {
@@ -102,9 +104,10 @@ public class MetFrame extends JFrame {
         }
         else {
             next.setEnabled(true);
+            index ++;
+            //send object ID to controller
+            controller.requestObjectInfo(index);
         }
-        //send object ID to controller
-        controller.requestObjectInfo(index);
     }
 
     public static void main(String[] args) {
