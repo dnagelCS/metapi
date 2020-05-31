@@ -18,8 +18,6 @@ public class MetController {
     JLabel date;
     JLabel culture;
     JLabel medium;
-    BasicArrowButton previous;
-    BasicArrowButton next;
 
     public MetController(MetService service, JLabel image,
                          JLabel title, JLabel period,
