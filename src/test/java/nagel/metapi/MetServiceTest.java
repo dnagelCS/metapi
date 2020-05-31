@@ -35,15 +35,15 @@ public class MetServiceTest {
         MetService service = new MetServiceFactory().getInstance();
 
         //when
-        Response<MetFeed.ObjectsList> response = service.getObjects(18).execute();
+        Response<MetFeed.Objects> response = service.getObjects(18).execute();
 
         //then
         assertTrue(response.toString(), response.isSuccessful());
-        MetFeed.ObjectsList objectsList = response.body();
-        assertNotNull(objectsList);
-        assert(objectsList.total > 0);
+        MetFeed.Objects objects = response.body();
+        assertNotNull(objects);
+        assert(objects.total > 0);
 
-        List<Integer> objectIDs = objectsList.objectIDs;
+        List<Integer> objectIDs = objects.objectIDs;
         assertFalse(objectIDs.isEmpty());
         int objectID = objectIDs.get(0);
         assert(objectID > 0);
@@ -55,18 +55,18 @@ public class MetServiceTest {
         MetService service = new MetServiceFactory().getInstance();
 
         //when
-        Response<MetFeed.Object> response = service.getObjectInfo(501607).execute();
+        Response<MetFeed.ObjectInfo> response = service.getObjectInfo(501607).execute();
 
         //then
         assertTrue(response.toString(), response.isSuccessful());
-        MetFeed.Object object = response.body();
-        assertNotNull(object);
+        MetFeed.ObjectInfo objectInfo = response.body();
+        assertNotNull(objectInfo);
 
-        assertNotNull(object.primaryImage);
-        assertNotNull(object.title);
-        assertNotNull(object.period);
-        assertNotNull(object.objectDate);
-        assertNotNull(object.culture);
-        assertNotNull(object.medium);
+        assertNotNull(objectInfo.primaryImage);
+        assertNotNull(objectInfo.title);
+        assertNotNull(objectInfo.period);
+        assertNotNull(objectInfo.objectDate);
+        assertNotNull(objectInfo.culture);
+        assertNotNull(objectInfo.medium);
     }
 }

@@ -12,10 +12,10 @@ public interface MetService {
 
     //Object List
     @GET("/public/collection/v1/objects")
-    Call<MetFeed.ObjectsList> getObjects(@Query("departmentIds") int departmentId);
+    Call<MetFeed.Objects> getObjects(@Query("departmentIds") int departmentId);
 
     //Metadata of single object
     @GET("/public/collection/v1/objects/{objectID}")
-    Call<MetFeed.Object> getObjectInfo(@Path("objectID") int objectID);
+    Call<MetFeed.ObjectInfo> getObjectInfo(@Path("objectID") int objectID);
 
 }

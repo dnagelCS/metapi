@@ -6,19 +6,19 @@ public class MetFeed {
 
     class DeptList {
         List<Department> departments;
+
+        class Department {
+            int departmentId;
+            String displayName;
+        }
     }
 
-    class Department {
-        int departmentId;
-        String displayName;
-    }
-
-    class ObjectsList {
+    class Objects {
         int total;
         List<Integer> objectIDs;
     }
 
-    class Object {
+    class ObjectInfo {
         int objectID;
         String primaryImage;
         String title;
