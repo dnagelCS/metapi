@@ -61,9 +61,9 @@ public class MetFrame extends JFrame {
         arrowPanel = new JPanel();
         arrowPanel.setLayout(new FlowLayout());
         previous = new BasicArrowButton(BasicArrowButton.LEFT);
-        previous.addActionListener(actionEvent -> getPreviousObject(index));
+        previous.addActionListener(actionEvent -> getPreviousObject());
         next = new BasicArrowButton(BasicArrowButton.RIGHT);
-        next.addActionListener(actionEvent -> getNextObject(index));
+        next.addActionListener(actionEvent -> getNextObject());
         arrowPanel.add(previous);
         arrowPanel.add(next);
 
@@ -83,7 +83,7 @@ public class MetFrame extends JFrame {
         controller.requestObjects(deptID);
     }
 
-    private void getPreviousObject(int index) {
+    private void getPreviousObject() {
         //disable at start of objectID list
         if(index == 0) {
             previous.setEnabled(false);
@@ -95,7 +95,7 @@ public class MetFrame extends JFrame {
         controller.requestObjectInfo(index);
     }
 
-    private void getNextObject(int index) {
+    private void getNextObject() {
         //disable at end of objectID list
         if(index == objects.objectIDs.size() - 1) {
             next.setEnabled(false);
