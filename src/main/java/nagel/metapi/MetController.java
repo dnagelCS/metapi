@@ -99,6 +99,7 @@ public class MetController {
                         Image resizedImage = buffImage.getScaledInstance(
                                 image.getWidth(), image.getHeight(), Image.SCALE_SMOOTH);
                         image.setIcon(new ImageIcon(resizedImage));
+                        image.setText("");
                     } catch(IOException exc) {
                         exc.printStackTrace();
                     }
