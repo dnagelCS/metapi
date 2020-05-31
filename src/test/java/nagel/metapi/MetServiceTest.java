@@ -22,9 +22,9 @@ public class MetServiceTest {
         MetFeed.DeptList deptList = response.body();
         assertNotNull(deptList);
 
-        List<MetFeed.Department> departments = deptList.departments;
+        List<MetFeed.DeptList.Department > departments = deptList.departments;
         assertFalse(departments.isEmpty());
-        MetFeed.Department department = departments.get(0);
+        MetFeed.DeptList.Department department = departments.get(0);
         assertNotNull(department.displayName);
         assert(department.departmentId > 0);
     }

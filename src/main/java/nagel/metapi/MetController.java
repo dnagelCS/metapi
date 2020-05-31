@@ -9,7 +9,7 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicArrowButton;
 import java.util.List;
 
-//Request data from MetService and populate the view
+//Request data from MetService and populate the view/frame
 public class MetController {
     private MetService service;
     JLabel image;
