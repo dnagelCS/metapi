@@ -7,6 +7,7 @@ import retrofit2.Response;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -95,7 +96,9 @@ public class MetController {
                     try {
                         URL url = new URL(objectInfo.primaryImage);
                         BufferedImage buffImage = ImageIO.read(url);
-                        image.setIcon(new ImageIcon(buffImage));
+                        Image resizedImage = buffImage.getScaledInstance(
+                                image.getWidth(), image.getHeight(), Image.SCALE_SMOOTH);
+                        image.setIcon(new ImageIcon(resizedImage));
                     } catch(IOException exc) {
                         exc.printStackTrace();
                     }
