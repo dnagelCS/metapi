@@ -12,26 +12,26 @@ import java.util.List;
 public class MetController {
 
     private MetService service;
+    JComboBox<MetFeed.DeptList.Department> deptComboBox;
     JLabel image;
     JLabel title;
     JLabel period;
     JLabel date;
     JLabel culture;
     JLabel medium;
-    JComboBox<MetFeed.DeptList.Department> deptComboBox;
 
-    public MetController(MetService service, JLabel image,
+    public MetController(MetService service, JComboBox<MetFeed.DeptList.Department> deptComboBox, JLabel image,
                          JLabel title, JLabel period,
                          JLabel date, JLabel culture,
-                         JLabel medium, JComboBox<MetFeed.DeptList.Department> deptComboBox) {
+                         JLabel medium) {
         this.service = service;
+        this.deptComboBox = deptComboBox;
         this.image = image;
         this.title = title;
         this.period = period;
         this.date = date;
         this.culture = culture;
         this.medium = medium;
-        this.deptComboBox = deptComboBox;
     }
 
     //DEPT LIST

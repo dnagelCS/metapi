@@ -72,8 +72,8 @@ public class MetFrame extends JFrame {
         add(arrowPanel, BorderLayout.SOUTH);
 
         service = new MetServiceFactory().getInstance();
-        controller = new MetController(service, image, title,
-                period, date, culture, medium, deptComboBox);
+        controller = new MetController(service, deptComboBox, image, title,
+                period, date, culture, medium);
     }
 
     private void getObjects() {
