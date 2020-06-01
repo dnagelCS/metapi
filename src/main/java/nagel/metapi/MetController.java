@@ -7,6 +7,7 @@ import retrofit2.Response;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicArrowButton;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -26,11 +27,14 @@ public class MetController {
     JLabel date;
     JLabel culture;
     JLabel medium;
+    BasicArrowButton prev;
+    BasicArrowButton next;
 
     public MetController(MetService service, JComboBox<MetFeed.DeptList.Department> deptComboBox, JLabel image,
                          JLabel title, JLabel period,
                          JLabel date, JLabel culture,
-                         JLabel medium) {
+                         JLabel medium, BasicArrowButton prev,
+                         BasicArrowButton next) {
         this.service = service;
         this.deptComboBox = deptComboBox;
         this.image = image;
@@ -39,6 +43,8 @@ public class MetController {
         this.date = date;
         this.culture = culture;
         this.medium = medium;
+        this.prev = prev;
+        this.next = next;
     }
 
     //DEPT LIST
@@ -82,6 +88,18 @@ public class MetController {
 
     //OBJECT METADATA
     public void requestObjectInfo(int objectID) {
+        if(objectID == 0) {
+            prev.setEnabled(false);
+        }
+        else {
+            prev.setEnabled(true);
+        }
+        if(objectID == objectIDs.size() - 1) {
+            next.setEnabled(false);
+        }
+        else {
+            next.setEnabled(true);
+        }
         service.getObjectInfo(objectIDs.get(objectID)).enqueue(new Callback<MetFeed.ObjectInfo>() {
             @Override
             public void onResponse(Call<MetFeed.ObjectInfo> call, Response<MetFeed.ObjectInfo> response) {

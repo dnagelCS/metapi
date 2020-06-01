@@ -68,12 +68,12 @@ public class MetFrame extends JFrame {
         arrowPanel.add(next);
 
         add(departmentsPanel, BorderLayout.WEST);
-        add(objectPanel, BorderLayout.CENTER);    //maybe change to center so pic can go on right
+        add(objectPanel, BorderLayout.CENTER);
         add(arrowPanel, BorderLayout.SOUTH);
 
         service = new MetServiceFactory().getInstance();
         controller = new MetController(service, deptComboBox, image, title,
-                period, date, culture, medium);
+                period, date, culture, medium, previous, next);
         //send deptComboBox containing Dept List to controller
         controller.requestDeptList();
     }
@@ -87,27 +87,13 @@ public class MetFrame extends JFrame {
     }
 
     private void getPreviousObject() {
-        //disable at start of objectID list
-        if(index == 0) {
-            previous.setEnabled(false);
-        }
-        else {
-            previous.setEnabled(true);
-            index --;
-        }
+        index--;
         //send object ID to controller
         controller.requestObjectInfo(index);
     }
 
     private void getNextObject() {
-        //disable at end of objectID list
-        if(index == objects.objectIDs.size() - 1) {
-            next.setEnabled(false);
-        }
-        else {
-            next.setEnabled(true);
-            index ++;
-        }
+        index++;
         //send object ID to controller
         controller.requestObjectInfo(index);
     }
