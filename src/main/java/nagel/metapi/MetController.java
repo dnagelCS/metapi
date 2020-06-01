@@ -105,7 +105,7 @@ public class MetController {
             public void onResponse(Call<MetFeed.ObjectInfo> call, Response<MetFeed.ObjectInfo> response) {
                 MetFeed.ObjectInfo objectInfo = response.body();
                 assert objectInfo != null;
-                image.setSize(100,100);
+                image.setSize(200,200);
                 if(objectInfo.primaryImage.equals("")) {
                     image.setIcon(null);
                     image.setText("No image");

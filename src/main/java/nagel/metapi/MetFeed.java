@@ -10,6 +10,11 @@ public class MetFeed {
         class Department {
             int departmentId;
             String displayName;
+
+            @Override
+            public String toString() {
+                return displayName;
+            }
         }
     }
 

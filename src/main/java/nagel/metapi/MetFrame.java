@@ -23,10 +23,9 @@ public class MetFrame extends JFrame {
 
     private  int index;
     MetFeed.DeptList.Department selectedDept;
-    MetFeed.Objects objects;
 
     public MetFrame() {
-        setSize(700,400);
+        setSize(600,350);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("MET Virtual Tour");
         setLayout(new BorderLayout());
