@@ -4,10 +4,10 @@ import java.util.List;
 
 public class MetFeed {
 
-    class DeptList {
+    static class DeptList {
         List<Department> departments;
 
-        class Department {
+        static class Department {
             int departmentId;
             String displayName;
 
@@ -18,12 +18,12 @@ public class MetFeed {
         }
     }
 
-    class Objects {
+    static class Objects {
         int total;
         List<Integer> objectIDs;
     }
 
-    class ObjectInfo {
+    static class ObjectInfo {
         int objectID;
         String primaryImage;
         String title;

@@ -9,6 +9,17 @@ repositories {
     mavenCentral()
 }
 
+//https://stackoverflow.com/questions/4871656/using-gradle-to-build-a-jar-with-dependencies/4894308#4894308
+jar {
+    manifest {
+        attributes "Main-Class": "nagel.metapi.MetFrame"
+    }
+    //this will put all the dependencies in the jar file
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
 dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'

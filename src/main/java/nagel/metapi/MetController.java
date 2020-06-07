@@ -17,9 +17,9 @@ import java.util.List;
 //Request data from MetService and populate the view/frame
 public class MetController {
 
-    private MetService service;
-    private List<MetFeed.DeptList.Department> departments;
-    private List<Integer> objectIDs;
+    protected MetService service;
+    protected List<MetFeed.DeptList.Department> departments;
+    protected List<Integer> objectIDs;
     JComboBox<MetFeed.DeptList.Department> deptComboBox;
     JLabel image;
     JLabel title;
@@ -27,14 +27,14 @@ public class MetController {
     JLabel date;
     JLabel culture;
     JLabel medium;
-    BasicArrowButton prev;
-    BasicArrowButton next;
+    JButton prev;
+    JButton next;
 
     public MetController(MetService service, JComboBox<MetFeed.DeptList.Department> deptComboBox, JLabel image,
                          JLabel title, JLabel period,
                          JLabel date, JLabel culture,
-                         JLabel medium, BasicArrowButton prev,
-                         BasicArrowButton next) {
+                         JLabel medium, JButton prev,
+                         JButton next) {
         this.service = service;
         this.deptComboBox = deptComboBox;
         this.image = image;
@@ -49,7 +49,12 @@ public class MetController {
 
     //DEPT LIST
     public void requestDeptList() {
-        service.getDepartments().enqueue(new Callback<MetFeed.DeptList>() {
+        service.getDepartments().enqueue(getCallDept());
+    }
+
+    public Callback<MetFeed.DeptList> getCallDept() {
+        return new Callback<MetFeed.DeptList>() {
+
             @Override
             public void onResponse(Call<MetFeed.DeptList> call, Response<MetFeed.DeptList> response) {
                 MetFeed.DeptList deptList = response.body();
@@ -64,18 +69,21 @@ public class MetController {
             public void onFailure(Call<MetFeed.DeptList> call, Throwable t) {
                 t.printStackTrace();
             }
-        });
+        };
     }
 
     //OBJECTS
     public void requestObjects(int deptID) {
-        service.getObjects(deptID).enqueue(new Callback<MetFeed.Objects>() {
+        service.getObjects(deptID).enqueue(getCallObjects());
+    }
+
+    public Callback<MetFeed.Objects> getCallObjects() {
+        return new Callback<MetFeed.Objects>() {
             @Override
             public void onResponse(Call<MetFeed.Objects> call, Response<MetFeed.Objects> response) {
                 MetFeed.Objects objects = response.body();
                 assert objects != null;
                 objectIDs = objects.objectIDs;
-                //automatically begin with 1st object ID
                 requestObjectInfo(0);
             }
 
@@ -83,34 +91,35 @@ public class MetController {
             public void onFailure(Call<MetFeed.Objects> call, Throwable t) {
                 t.printStackTrace();
             }
-        });
+        };
     }
 
     //OBJECT METADATA
     public void requestObjectInfo(int objectID) {
-        if(objectID == 0) {
+        if (objectID == 0) {
             prev.setEnabled(false);
-        }
-        else {
+        } else {
             prev.setEnabled(true);
         }
-        if(objectID == objectIDs.size() - 1) {
+        if (objectID == objectIDs.size() - 1) {
             next.setEnabled(false);
-        }
-        else {
+        } else {
             next.setEnabled(true);
         }
-        service.getObjectInfo(objectIDs.get(objectID)).enqueue(new Callback<MetFeed.ObjectInfo>() {
+        service.getObjectInfo(objectIDs.get(objectID)).enqueue(getCallObjectInfo());
+    }
+
+    public Callback<MetFeed.ObjectInfo> getCallObjectInfo() {
+        return new Callback<MetFeed.ObjectInfo>() {
             @Override
             public void onResponse(Call<MetFeed.ObjectInfo> call, Response<MetFeed.ObjectInfo> response) {
                 MetFeed.ObjectInfo objectInfo = response.body();
                 assert objectInfo != null;
-                image.setSize(200,200);
-                if(objectInfo.primaryImage.equals("")) {
+                image.setSize(200, 200);
+                if (objectInfo.primaryImage.equals("")) {
                     image.setIcon(null);
                     image.setText("No image");
-                }
-                else {
+                } else {
                     try {
                         URL url = new URL(objectInfo.primaryImage);
                         BufferedImage buffImage = ImageIO.read(url);
@@ -118,7 +127,7 @@ public class MetController {
                                 image.getWidth(), image.getHeight(), Image.SCALE_SMOOTH);
                         image.setIcon(new ImageIcon(resizedImage));
                         image.setText("");
-                    } catch(IOException exc) {
+                    } catch (IOException exc) {
                         exc.printStackTrace();
                     }
                 }
@@ -133,7 +142,7 @@ public class MetController {
             public void onFailure(Call<MetFeed.ObjectInfo> call, Throwable t) {
                 t.printStackTrace();
             }
-        });
+        };
     }
 
 }

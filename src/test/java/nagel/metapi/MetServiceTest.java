@@ -2,6 +2,7 @@ package nagel.metapi;
 
 import org.junit.Test;
 import retrofit2.Response;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -22,11 +23,11 @@ public class MetServiceTest {
         MetFeed.DeptList deptList = response.body();
         assertNotNull(deptList);
 
-        List<MetFeed.DeptList.Department > departments = deptList.departments;
+        List<MetFeed.DeptList.Department> departments = deptList.departments;
         assertFalse(departments.isEmpty());
         MetFeed.DeptList.Department department = departments.get(0);
         assertNotNull(department.displayName);
-        assert(department.departmentId > 0);
+        assert (department.departmentId > 0);
     }
 
     @Test
@@ -41,12 +42,12 @@ public class MetServiceTest {
         assertTrue(response.toString(), response.isSuccessful());
         MetFeed.Objects objects = response.body();
         assertNotNull(objects);
-        assert(objects.total > 0);
+        assert (objects.total > 0);
 
         List<Integer> objectIDs = objects.objectIDs;
         assertFalse(objectIDs.isEmpty());
         int objectID = objectIDs.get(0);
-        assert(objectID > 0);
+        assert (objectID > 0);
     }
 
     @Test

@@ -18,14 +18,14 @@ public class MetFrame extends JFrame {
     private JLabel culture;
     private JLabel medium;
     private JPanel arrowPanel;
-    private BasicArrowButton previous;
-    private BasicArrowButton next;
+    private JButton previous;
+    private JButton next;
 
-    private  int index;
+    private int index;
     MetFeed.DeptList.Department selectedDept;
 
     public MetFrame() {
-        setSize(600,350);
+        setSize(600, 350);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("MET Virtual Tour");
         setLayout(new BorderLayout());
@@ -55,13 +55,10 @@ public class MetFrame extends JFrame {
         objectPanel.add(medium);
 
         arrowPanel = new JPanel();
-        arrowPanel.setLayout(new FlowLayout());
-        previous = new BasicArrowButton(BasicArrowButton.WEST);
-        /* Is there a way to resize the button? It seems that the class
-        BasicArrowButton overrides the method setSize(). */
-        previous.setSize(200,200);
+        arrowPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        previous = new JButton("\u00ab");
         previous.addActionListener(actionEvent -> getPreviousObject());
-        next = new BasicArrowButton(BasicArrowButton.EAST);
+        next = new JButton("\u00bb");
         next.addActionListener(actionEvent -> getNextObject());
         arrowPanel.add(previous);
         arrowPanel.add(next);
