@@ -109,7 +109,6 @@ public class MetControllerTest {
         doReturn(objectInfoCall).when(service).getObjectInfo(objIdList.get(0));
 
         //when
-        //response is returning null
         controller.getCallObjects().onResponse(call, response);
 
         //then

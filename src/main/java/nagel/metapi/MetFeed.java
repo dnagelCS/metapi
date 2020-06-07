@@ -25,11 +25,11 @@ public class MetFeed {
 
     static class ObjectInfo {
         int objectID;
-        String primaryImage;
         String title;
         String culture;
         String period;
         String objectDate;
         String medium;
+        String primaryImage;
     }
 }

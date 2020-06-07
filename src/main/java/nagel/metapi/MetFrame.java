@@ -11,12 +11,12 @@ public class MetFrame extends JFrame {
     private JPanel departmentsPanel;
     private JComboBox<MetFeed.DeptList.Department> deptComboBox;
     private JPanel objectPanel;
-    private JLabel image;
     private JLabel title;
     private JLabel period;
     private JLabel date;
     private JLabel culture;
     private JLabel medium;
+    private JLabel image;
     private JPanel arrowPanel;
     private JButton previous;
     private JButton next;
@@ -41,18 +41,18 @@ public class MetFrame extends JFrame {
 
         objectPanel = new JPanel();
         objectPanel.setLayout(new BoxLayout(objectPanel, BoxLayout.Y_AXIS));
-        image = new JLabel();
         title = new JLabel();
         period = new JLabel();
         date = new JLabel();
         culture = new JLabel();
         medium = new JLabel();
-        objectPanel.add(image);
+        image = new JLabel();
         objectPanel.add(title);
         objectPanel.add(period);
         objectPanel.add(date);
         objectPanel.add(culture);
         objectPanel.add(medium);
+        objectPanel.add(image);
 
         arrowPanel = new JPanel();
         arrowPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -68,8 +68,8 @@ public class MetFrame extends JFrame {
         add(arrowPanel, BorderLayout.SOUTH);
 
         service = new MetServiceFactory().getInstance();
-        controller = new MetController(service, deptComboBox, image, title,
-                period, date, culture, medium, previous, next);
+        controller = new MetController(service, deptComboBox, title,
+                period, date, culture, medium, image, previous, next);
         //send deptComboBox containing Dept List to controller
         controller.requestDeptList();
     }

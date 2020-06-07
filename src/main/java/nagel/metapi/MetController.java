@@ -20,28 +20,28 @@ public class MetController {
     protected List<MetFeed.DeptList.Department> departments;
     protected List<Integer> objectIDs;
     JComboBox<MetFeed.DeptList.Department> deptComboBox;
-    JLabel image;
     JLabel title;
     JLabel period;
     JLabel date;
     JLabel culture;
     JLabel medium;
+    JLabel image;
     JButton prev;
     JButton next;
 
-    public MetController(MetService service, JComboBox<MetFeed.DeptList.Department> deptComboBox, JLabel image,
+    public MetController(MetService service, JComboBox<MetFeed.DeptList.Department> deptComboBox,
                          JLabel title, JLabel period,
                          JLabel date, JLabel culture,
-                         JLabel medium, JButton prev,
-                         JButton next) {
+                         JLabel medium, JLabel image,
+                         JButton prev, JButton next) {
         this.service = service;
         this.deptComboBox = deptComboBox;
-        this.image = image;
         this.title = title;
         this.period = period;
         this.date = date;
         this.culture = culture;
         this.medium = medium;
+        this.image = image;
         this.prev = prev;
         this.next = next;
     }
@@ -114,6 +114,13 @@ public class MetController {
             public void onResponse(Call<MetFeed.ObjectInfo> call, Response<MetFeed.ObjectInfo> response) {
                 MetFeed.ObjectInfo objectInfo = response.body();
                 assert objectInfo != null;
+
+                title.setText("Title: " + objectInfo.title);
+                period.setText("Period: " + objectInfo.period);
+                date.setText("Date: " + objectInfo.objectDate);
+                culture.setText("Culture: " + objectInfo.culture);
+                medium.setText("Medium: " + objectInfo.medium);
+
                 image.setSize(200, 200);
                 if (objectInfo.primaryImage.equals("") || objectInfo.primaryImage == null) {
                     image.setIcon(null);
@@ -131,11 +138,6 @@ public class MetController {
                         image.setText("No image");
                     }
                 }
-                title.setText("Title: " + objectInfo.title);
-                period.setText("Period: " + objectInfo.period);
-                date.setText("Date: " + objectInfo.objectDate);
-                culture.setText("Culture: " + objectInfo.culture);
-                medium.setText("Medium: " + objectInfo.medium);
             }
 
             @Override
