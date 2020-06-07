@@ -1,7 +1,6 @@
 package nagel.metapi;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicArrowButton;
 import java.awt.*;
 
 public class MetFrame extends JFrame {
