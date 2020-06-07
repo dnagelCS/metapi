@@ -5,7 +5,6 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicArrowButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +85,7 @@ public class MetControllerTest {
         verify(service.getObjects(1)).enqueue(any());
     }
 
-    @Test //FAIL
+    @Test
     public void onResponseObjects() {
         //given
         MetService service = mock(MetService.class);
@@ -98,21 +97,20 @@ public class MetControllerTest {
         Call<MetFeed.Objects> call = mock(Call.class);
         Call<MetFeed.ObjectInfo> objectInfoCall = mock(Call.class);
         Response<MetFeed.Objects> response = mock(Response.class);
-        ArrayList<Integer> mock = mock(ArrayList.class);
 
         MetFeed.Objects objects = new MetFeed.Objects();
         ArrayList<Integer> objIdList = new ArrayList<>();
         objIdList.add(1999);
         objects.objectIDs = objIdList;
 
-        doReturn(objIdList).when(response).body();
-        doReturn(objectInfoCall).when(service).getObjectInfo(objIdList.get(0));
+        doReturn(objects).when(response).body();
+        doReturn(objectInfoCall).when(service).getObjectInfo(objects.objectIDs.get(0));
 
         //when
         controller.getCallObjects().onResponse(call, response);
 
         //then
-        verify(mock).equals(objIdList);
+        assertEquals(controller.objectIDs, objects.objectIDs);
         verify(service).getObjectInfo(1999);
     }
 
@@ -153,12 +151,12 @@ public class MetControllerTest {
         Response<MetFeed.ObjectInfo> response = mock(Response.class);
 
         MetFeed.ObjectInfo metadata = new MetFeed.ObjectInfo();
-        metadata.primaryImage = "";
         metadata.title = "title";
         metadata.period = "period";
         metadata.objectDate = "date";
         metadata.culture = "culture";
         metadata.medium = "medium";
+        metadata.primaryImage = "";
 
         doReturn(metadata).when(response).body();
 
@@ -166,11 +164,11 @@ public class MetControllerTest {
         controller.getCallObjectInfo().onResponse(call, response);
 
         //then
+        verify(label).setText("Title: " + metadata.title);
+        verify(label).setText("Period: " + metadata.period);
+        verify(label).setText("Date: " + metadata.objectDate);
+        verify(label).setText("Culture: " + metadata.culture);
+        verify(label).setText("Medium: " + metadata.medium);
         verify(label).setText("No image");
-        verify(label).setText(metadata.title);
-        verify(label).setText(metadata.period);
-        verify(label).setText(metadata.objectDate);
-        verify(label).setText(metadata.culture);
-        verify(label).setText(metadata.medium);
     }
 }
