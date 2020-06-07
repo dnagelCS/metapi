@@ -138,7 +138,7 @@ public class MetControllerTest {
         verify(service.getObjectInfo(1)).enqueue(any());
     }
 
-    @Test //FAIL
+    @Test 
     public void onResponseObjectInfo() {
         //given
         MetService service = mock(MetService.class);
