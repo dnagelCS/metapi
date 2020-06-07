@@ -7,7 +7,6 @@ import retrofit2.Response;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicArrowButton;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -17,7 +16,7 @@ import java.util.List;
 //Request data from MetService and populate the view/frame
 public class MetController {
 
-    protected MetService service;
+    private MetService service;
     protected List<MetFeed.DeptList.Department> departments;
     protected List<Integer> objectIDs;
     JComboBox<MetFeed.DeptList.Department> deptComboBox;
@@ -116,7 +115,7 @@ public class MetController {
                 MetFeed.ObjectInfo objectInfo = response.body();
                 assert objectInfo != null;
                 image.setSize(200, 200);
-                if (objectInfo.primaryImage.equals("")) {
+                if (objectInfo.primaryImage.equals("") || objectInfo.primaryImage == null) {
                     image.setIcon(null);
                     image.setText("No image");
                 } else {
@@ -127,8 +126,9 @@ public class MetController {
                                 image.getWidth(), image.getHeight(), Image.SCALE_SMOOTH);
                         image.setIcon(new ImageIcon(resizedImage));
                         image.setText("");
-                    } catch (IOException exc) {
-                        exc.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        image.setText("No image");
                     }
                 }
                 title.setText("Title: " + objectInfo.title);
