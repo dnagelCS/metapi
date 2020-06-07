@@ -86,7 +86,7 @@ public class MetControllerTest {
         verify(service.getObjects(1)).enqueue(any());
     }
 
-    @Test
+    @Test //FAIL
     public void onResponseObjects() {
         //given
         MetService service = mock(MetService.class);
@@ -141,7 +141,7 @@ public class MetControllerTest {
         verify(service.getObjectInfo(1)).enqueue(any());
     }
 
-    @Test
+    @Test //FAIL
     public void onResponseObjectInfo() {
         //given
         MetService service = mock(MetService.class);
